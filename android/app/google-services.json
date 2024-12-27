@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "680348275586",
+    "project_id": "haajaree",
+    "storage_bucket": "haajaree.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680348275586:android:0ce3f70d247e250399759b",
+        "android_client_info": {
+          "package_name": "com.example.haajaree"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApPdv5ZBJDAu-ODphMIly9rx_22BhN6vI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

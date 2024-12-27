@@ -1,0 +1,59 @@
+name: haajaree
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.4
+
+dependencies:
+  bloc: ^8.1.4
+  cloud_firestore: ^5.6.0
+  equatable: ^2.0.7
+  firebase_auth: ^5.3.4
+  firebase_core: ^3.9.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.6
+  flutter_localizations:
+    sdk: flutter
+  flutter_svg: ^2.0.16
+  fluttertoast: ^8.2.10
+  google_fonts: ^6.2.1
+  intl: ^0.19.0
+  loading_animation_widget: ^1.3.0
+  modal_bottom_sheet: ^3.0.0
+  numberpicker: ^2.1.2
+  google_sign_in: ^6.2.2
+  image_picker: ^1.1.2
+  firebase_messaging: ^15.1.6
+  app_settings: ^5.1.1
+  flutter_local_notifications: ^18.0.1
+  timezone: ^0.10.0
+
+  
+dev_dependencies:
+  flutter_native_splash: ^2.3.1
+  flutter_launcher_icons: ^0.13.1
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logos.png"  # Path to your app icon
+  min_sdk_android: 23                    # Optional: Minimum Android SDK version
+
+
+flutter_native_splash:
+  color: "#FFFFFF"                      # Background color for the splash screen
+  image: "assets/images/logos.png"  # Path to your splash image
+  android: true
+  ios: true
+
+flutter:
+  uses-material-design: true
+  assets:
+     - assets/icons/
+     - assets/images/
