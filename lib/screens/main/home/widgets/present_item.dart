@@ -95,11 +95,11 @@ class _PresentItemsState extends State<PresentItems> {
                     textStyle: GoogleFonts.urbanist(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: Color(blackColor)),
+                        color: const Color(blackColor)),
                     selectedTextStyle: GoogleFonts.urbanist(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: Color(bgColor)),
+                        color: const Color(bgColor)),
                     onChanged: (value) => setState(() => currentValue1 = value),
                   ),
                 ],
@@ -148,11 +148,11 @@ class _PresentItemsState extends State<PresentItems> {
                     textStyle: GoogleFonts.urbanist(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: Color(blackColor)),
+                        color: const Color(blackColor)),
                     selectedTextStyle: GoogleFonts.urbanist(
                         fontSize: 20,
                         fontWeight: FontWeight.w400,
-                        color: Color(bgColor)),
+                        color: const Color(bgColor)),
                     onChanged: (value) => setState(() => currentValue2 = value),
                   ),
                 ],

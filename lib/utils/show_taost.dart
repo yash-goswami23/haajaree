@@ -10,7 +10,7 @@ showToast(String msg) {
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
       backgroundColor: const Color(whiteColor),
-      textColor: Color(bgColor),
+      textColor: const Color(bgColor),
       fontSize: 14.0);
 }
 
@@ -18,7 +18,7 @@ showSnakBar(context, String msg) {
   return ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: inputBold(text: msg, color: redColor, context: context),
-      backgroundColor: Color(whiteColor),
+      backgroundColor: const Color(whiteColor),
     ),
   );
 }

@@ -22,7 +22,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(HomeLoading());
     try {
       final yearPath = DateTime.now().year.toString();
-      final monthPath = DateTime.now().month.toString();
+      final monthPath = DateFormat('M').format(DateTime.now()).toString();
 
       await _databaseRepository.setUserAttendanceData(
           yearPath, monthPath, event.homeModel.date, event.homeModel);
@@ -44,7 +44,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(HomeLoading());
     try {
       final yearPath = DateTime.now().year.toString();
-      final monthPath = DateFormat('MM').format(DateTime.now()).toString();
+      final monthPath = DateFormat('M').format(DateTime.now()).toString();
       homeList = await _databaseRepository.fetchUserAttendanceData(
           yearPath, monthPath);
       if (homeList != null) {

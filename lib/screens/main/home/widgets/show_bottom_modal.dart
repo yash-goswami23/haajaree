@@ -20,7 +20,7 @@ showBottomModalDialog({
           child: Material(
               borderRadius:
                   const BorderRadius.vertical(top: Radius.circular(25.0)),
-              color: Color(whiteColor),
+              color: const Color(whiteColor),
               child: child)));
 }
 
@@ -36,8 +36,8 @@ Widget bottomSheetItemCard({
   return GestureDetector(
     onTap: onTap,
     child: Container(
-      padding: EdgeInsets.symmetric(vertical: 25, horizontal: 10),
-      decoration: BoxDecoration(
+      padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
+      decoration: const BoxDecoration(
           gradient:
               LinearGradient(colors: [Color(whiteColor), Color(bgColor)])),
       child: Row(

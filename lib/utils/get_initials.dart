@@ -1,5 +1,5 @@
 String getInitials({required String string, required int limitTo}) {
-  if (string == null || string.isEmpty) {
+  if (string.isEmpty) {
     return '';
   }
 
