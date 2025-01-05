@@ -22,9 +22,9 @@ class DatabaseRepository {
 
   Future<UserModel?> fetchUserData(String docPath) async {
     try {
-      _firebaseFirestore.settings = const Settings(
-        persistenceEnabled: true,
-      );
+      // _firebaseFirestore.settings = const Settings(
+      //   persistenceEnabled: true,
+      // );
       final collectionRef = _firebaseFirestore.collection('users').doc(docPath);
       final data = await collectionRef.get();
       if (data.exists) {
@@ -40,9 +40,9 @@ class DatabaseRepository {
       String datePath, HomeModel homeModel) async {
     try {
       final String userIdPath = _authRepository.currentUser!.uid;
-      _firebaseFirestore.settings = const Settings(
-        persistenceEnabled: true,
-      );
+      // _firebaseFirestore.settings = const Settings(
+      //   persistenceEnabled: true,
+      // );
       final docRef = _firebaseFirestore
           .collection('users')
           .doc(userIdPath)
@@ -60,9 +60,9 @@ class DatabaseRepository {
       String yearPtah, String monthPath) async {
     try {
       final String userIdPath = _authRepository.currentUser!.uid;
-      _firebaseFirestore.settings = const Settings(
-        persistenceEnabled: true,
-      );
+      // _firebaseFirestore.settings = const Settings(
+      //   persistenceEnabled: true,
+      // );
       final collectionRef = _firebaseFirestore
           .collection('users')
           .doc(userIdPath)
@@ -71,9 +71,11 @@ class DatabaseRepository {
           .collection(monthPath)
           .orderBy('date', descending: true);
       final monthlyData = await collectionRef.get();
-      // if (data.exists) {
-      //   return UserModel.fromMap(data.data()!);
-      // }
+      if (monthlyData.docs.isEmpty) {
+        print(
+            'No attendance data found for the specified path. ${_firebaseFirestore.collection('users').doc(userIdPath).collection('attendance').doc(yearPtah).collection(monthPath).doc().parent}');
+        return [];
+      }
       final List<HomeModel> homeModelList = [];
       if (monthlyData.docs.isNotEmpty) {
         for (var element in monthlyData.docs) {

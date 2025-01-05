@@ -75,8 +75,7 @@ class _ProfileState extends State<Profile> {
             showSnakBar(context, state.error);
             context.read<UserBloc>().add(GetUserModelEvent());
           } else if (state is DbUserModelSuccess) {
-            if (state.userModel.photoUrl != null &&
-                state.userModel.photoUrl.isNotEmpty) {
+            if (state.userModel.photoUrl.isNotEmpty) {
               _selectedImage = File(state.userModel.photoUrl);
             }
             // if (state.userModel.jobEndTime != null) {
@@ -87,8 +86,7 @@ class _ProfileState extends State<Profile> {
         },
         builder: (context, state) {
           if (state is DbUserModelSuccess) {
-            if (state.userModel.photoUrl != null &&
-                state.userModel.photoUrl.isNotEmpty) {
+            if (state.userModel.photoUrl.isNotEmpty) {
               _selectedImage = File(state.userModel.photoUrl);
             }
             return Padding(
