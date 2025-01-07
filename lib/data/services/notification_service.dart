@@ -18,6 +18,7 @@ class NotificationService {
       provisional: false,
       sound: true,
     );
+
     if (settings.authorizationStatus == AuthorizationStatus.authorized) {
       // Authorized
     } else if (settings.authorizationStatus ==
@@ -32,6 +33,7 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((msg) {
       String? title = msg.notification?.title ?? "Default Title";
       String? body = msg.notification?.body ?? "Default Body";
+
       // initLocalNotifications(context, message);
       setupLocalNotifications();
       showNotification(title, body);
@@ -84,9 +86,8 @@ class NotificationService {
         body,
         platformChannelSpecifics,
       );
-    } catch (e) {
-      //
-    }
+      // ignore: empty_catches
+    } catch (e) {}
   }
 
   Future<String> getDeviceToken() async {

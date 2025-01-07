@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:haajaree/constants/colors.dart';
-import 'package:haajaree/utils/textSizeFix.dart';
+import 'package:haajaree/utils/text_size_fix.dart';
 
 //Urbanist regluar
 Widget elementRegluar({
@@ -30,7 +30,7 @@ Widget headingBlod(
     Text(text,
         textAlign: textAlign,
         style: GoogleFonts.urbanist(
-            fontSize: 45, fontWeight: FontWeight.w600, color: Color(color)),
+            fontSize: 40, fontWeight: FontWeight.w600, color: Color(color)),
         textScaleFactor: ScaleSize.textScaleFactor(context));
 
 //Urbanist title medium

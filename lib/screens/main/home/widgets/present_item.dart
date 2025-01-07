@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:haajaree/constants/colors.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/main/home/widgets/show_bottom_modal.dart';
 import 'package:haajaree/utils/show_taost.dart';
@@ -42,6 +43,7 @@ class _PresentItemsState extends State<PresentItems> {
               text: 'Full Duty No Over-Time',
               selectedIndex: selectedIndex,
               onTap: () {
+                AdmobService.showInterstitialAd();
                 setState(() {
                   selectedIndex = 1;
                 });
@@ -57,8 +59,9 @@ class _PresentItemsState extends State<PresentItems> {
               // showHour: true,
               index: 2,
               selectedIndex: selectedIndex,
-              text: 'Full Duty With Over-Time',
+              text: 'Duty With Over-Time',
               onTap: () {
+                AdmobService.showRewardedAd();
                 setState(() {
                   selectedIndex = 2;
                 });
@@ -112,6 +115,7 @@ class _PresentItemsState extends State<PresentItems> {
               selectedIndex: selectedIndex,
               text: 'Only-Time',
               onTap: () {
+                AdmobService.showRewardedAd();
                 setState(() {
                   selectedIndex = 3;
                 });

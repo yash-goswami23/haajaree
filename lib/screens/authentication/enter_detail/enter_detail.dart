@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:haajaree/bloc/auth_bloc/auth_bloc.dart';
 import 'package:haajaree/bloc/user_bloc/user_bloc.dart';
 import 'package:haajaree/constants/colors.dart';
@@ -7,11 +8,12 @@ import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/icons.dart';
 import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/user_model.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
 import 'package:haajaree/routes/routes_names.dart';
-import 'package:haajaree/screens/common_widgets/setDateBottomSheet.dart';
+import 'package:haajaree/screens/common_widgets/set_date_bottom_sheet.dart';
 import 'package:haajaree/utils/show_taost.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -40,8 +42,34 @@ class _EnterDetailState extends State<EnterDetail> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    AdmobService.loadRewardedAd();
+    AdmobService.loadInterstitialAd();
+    // AdmobService.loadInterstitialAd();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(bgColor),
+        actions: [
+          SizedBox(
+            width: screenWidth(context, dividedBy: 1),
+            child: AdWidget(
+              ad: AdmobService.createBannerAd()..load(),
+            ),
+          )
+        ],
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 65,
+        child: AdWidget(
+          ad: AdmobService.createBannerAd()..load(),
+          key: UniqueKey(),
+        ),
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -137,12 +165,14 @@ class _EnterDetailState extends State<EnterDetail> {
                           ),
                           customTextField(
                               controller: monthlySalaryController,
+                              textInputType: TextInputType.number,
                               label: 'Enter Monthly Salary'),
                           BlocConsumer<UserBloc, UserState>(
                             listener: (context, state) {
-                              if (state is DbFailure) {
+                              if (state is UserFailure) {
                                 showSnakBar(context, state.error);
-                              } else if (state is DbUserModelSuccess) {
+                              } else if (state is UserSuccess) {
+                                AdmobService.showRewardedAd();
                                 Navigator.pushReplacementNamed(
                                     context, mainPage);
                               }
@@ -153,8 +183,9 @@ class _EnterDetailState extends State<EnterDetail> {
                                     const EdgeInsets.symmetric(vertical: 30.0),
                                 child: button(
                                     context: context,
-                                    text: state is DbLoading ? null : 'Submit',
-                                    child: state is DbLoading
+                                    text:
+                                        state is UserLoading ? null : 'Submit',
+                                    child: state is UserLoading
                                         ? LoadingAnimationWidget.inkDrop(
                                             color: const Color(whiteColor),
                                             size: 25)

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:haajaree/data/models/home_model.dart';
+import 'package:haajaree/data/models/progress_model.dart';
 import 'package:haajaree/data/models/user_model.dart';
 import 'package:haajaree/data/repositories/auth_repository.dart';
 
@@ -43,14 +44,15 @@ class DatabaseRepository {
       // _firebaseFirestore.settings = const Settings(
       //   persistenceEnabled: true,
       // );
-      final docRef = _firebaseFirestore
+      await _firebaseFirestore
           .collection('users')
           .doc(userIdPath)
           .collection('attendance')
           .doc(yearPtah)
           .collection(monthPath)
-          .doc(datePath);
-      await docRef.set(homeModel.toMap());
+          .doc(datePath)
+          .set(homeModel.toMap());
+      // await docRef.set(homeModel.toMap());
     } catch (e) {
       rethrow;
     }
@@ -71,9 +73,8 @@ class DatabaseRepository {
           .collection(monthPath)
           .orderBy('date', descending: true);
       final monthlyData = await collectionRef.get();
+
       if (monthlyData.docs.isEmpty) {
-        print(
-            'No attendance data found for the specified path. ${_firebaseFirestore.collection('users').doc(userIdPath).collection('attendance').doc(yearPtah).collection(monthPath).doc().parent}');
         return [];
       }
       final List<HomeModel> homeModelList = [];
@@ -82,6 +83,53 @@ class DatabaseRepository {
           homeModelList.add(HomeModel.fromMap(element.data()));
         }
         return homeModelList;
+      }
+    } catch (e) {
+      rethrow;
+    }
+    return null;
+  }
+
+  Future<void> setTotalProgressData(
+      String yearPtah, String monthPath, ProgressModel progressModel) async {
+    try {
+      final String userIdPath = _authRepository.currentUser!.uid;
+      // _firebaseFirestore.settings = const Settings(
+      //   persistenceEnabled: true,
+      // );
+      final monthlyProgress = '$monthPath Total';
+      await _firebaseFirestore
+          .collection('users')
+          .doc(userIdPath)
+          .collection('totalAttendance')
+          .doc(yearPtah)
+          .collection(monthPath)
+          .doc(monthlyProgress)
+          .set(progressModel.toMap());
+      // await docRef.set(homeModel.toMap());
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<ProgressModel?> fetchTotalProgressData(
+      String yearPtah, String monthPath) async {
+    try {
+      final String userIdPath = _authRepository.currentUser!.uid;
+      // _firebaseFirestore.settings = const Settings(
+      //   persistenceEnabled: true,
+      // );
+      final monthlyProgress = '$monthPath total';
+      final collectionRef = _firebaseFirestore
+          .collection('users')
+          .doc(userIdPath)
+          .collection('totalAttendance')
+          .doc(yearPtah)
+          .collection(monthPath)
+          .doc(monthlyProgress);
+      final progressData = await collectionRef.get();
+      if (progressData.exists) {
+        return ProgressModel.fromMap(progressData.data()!);
       }
     } catch (e) {
       rethrow;

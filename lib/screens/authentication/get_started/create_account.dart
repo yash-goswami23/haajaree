@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:haajaree/bloc/auth_bloc/auth_bloc.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/icons.dart';
 import 'package:haajaree/constants/sizes.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
@@ -32,6 +34,8 @@ class _CreateAccountState extends State<CreateAccount>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    AdmobService.loadInterstitialAd();
+    AdmobService.loadRewardedAd();
   }
 
   @override
@@ -55,6 +59,17 @@ class _CreateAccountState extends State<CreateAccount>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(bgColor),
+        actions: [
+          SizedBox(
+            width: screenWidth(context, dividedBy: 1),
+            child: AdWidget(
+              ad: AdmobService.createBannerAd()..load(),
+            ),
+          )
+        ],
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -67,14 +82,16 @@ class _CreateAccountState extends State<CreateAccount>
                   children: [
                     Container(
                       margin: const EdgeInsets.only(top: 10),
-                      height: 240,
+                      height: screenHeight(context, dividedBy: 4.2),
                       // width: 200,
                       child: Stack(
                         alignment: Alignment.topCenter,
                         children: [
-                          appLogo(width: screenWidth(context)),
+                          appLogo(
+                              width: screenWidth(context),
+                              height: screenHeight(context, dividedBy: 8)),
                           Positioned(
-                            top: 98,
+                            top: screenHeight(context, dividedBy: 10),
                             child: SizedBox(
                               width: 250,
                               child: headingBlod(
@@ -89,7 +106,7 @@ class _CreateAccountState extends State<CreateAccount>
                     ),
                     Padding(
                       padding: EdgeInsets.only(
-                          top: screenWidth(context, dividedBy: 40),
+                          top: screenHeight(context, dividedBy: 40),
                           bottom: screenWidth(context, dividedBy: 30),
                           right: screenWidth(context, dividedBy: 11),
                           left: screenWidth(context, dividedBy: 11)),
@@ -99,7 +116,8 @@ class _CreateAccountState extends State<CreateAccount>
                               controller: fullNameControllers,
                               label: 'Enter Full Name'),
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 22.0),
+                            padding: EdgeInsets.symmetric(
+                                vertical: screenHeight(context, dividedBy: 45)),
                             child: customTextField(
                               controller: emailController,
                               label: 'Enter Email',
@@ -146,6 +164,7 @@ class _CreateAccountState extends State<CreateAccount>
                                   Navigator.pushReplacementNamed(
                                       context, enterDetailScreen);
                                 } else {
+                                  AdmobService.showRewardedAd();
                                   Navigator.pushReplacementNamed(
                                       context, mainPage);
                                 }
@@ -153,8 +172,9 @@ class _CreateAccountState extends State<CreateAccount>
                             },
                             builder: (context, state) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 30.0),
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        screenHeight(context, dividedBy: 50)),
                                 child: button(
                                     context: context,
                                     text: state is AuthLoading
@@ -176,6 +196,7 @@ class _CreateAccountState extends State<CreateAccount>
                                                     passwordController.text,
                                                 fullName:
                                                     fullNameControllers.text));
+                                        AdmobService.showInterstitialAd();
                                       } else {
                                         showSnakBar(context, 'Fill All Boxs');
                                       }
@@ -185,6 +206,7 @@ class _CreateAccountState extends State<CreateAccount>
                           ),
                           GestureDetector(
                               onTap: () {
+                                AdmobService.showInterstitialAd();
                                 Navigator.pushReplacementNamed(
                                     context, loginScreen);
                               },

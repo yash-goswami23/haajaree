@@ -5,6 +5,7 @@ import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/icons.dart';
 import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/home_model.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/main/home/widgets/home_mini_card.dart';
 import 'package:haajaree/screens/main/home/widgets/present_item.dart';
@@ -44,6 +45,8 @@ class HomeMainCardState extends State<HomeMainCard> {
   @override
   void initState() {
     super.initState();
+    AdmobService.loadInterstitialAd();
+    AdmobService.loadRewardedAd();
     overTime = widget.hour;
     if (widget.seletedValue.isNotEmpty) {
       currentValue = widget.seletedValue;
@@ -102,9 +105,12 @@ class HomeMainCardState extends State<HomeMainCard> {
               children: [
                 card(
                   context: context,
-                  width: screenWidth(context, dividedBy: 1.4),
+                  width: screenWidth(context, dividedBy: 1.3),
                   child: elementRegluar(
-                      text: "${widget.date} ${widget.day}", context: context),
+                      text: widget.isRight
+                          ? "${widget.day} ${widget.date}"
+                          : "${widget.date} ${widget.day}",
+                      context: context),
                   cardColor: bgColor,
                   alignment: widget.isRight
                       ? Alignment.bottomLeft
@@ -120,7 +126,7 @@ class HomeMainCardState extends State<HomeMainCard> {
                 const SizedBox(height: 15),
                 card(
                   context: context,
-                  width: screenWidth(context, dividedBy: 1.4),
+                  width: screenWidth(context, dividedBy: 1.3),
                   cardColor: bgColor,
                   alignment: widget.isRight
                       ? Alignment.bottomLeft
@@ -159,6 +165,7 @@ class HomeMainCardState extends State<HomeMainCard> {
                                             pChanges = selectedItem;
                                             currentValue = selectedItem;
                                             overTime = hour.toString();
+                                            AdmobService.showRewardedAd();
                                             setState(() {
                                               changeColor("P");
                                             });
@@ -180,6 +187,7 @@ class HomeMainCardState extends State<HomeMainCard> {
                                       cardColor: aColor,
                                       onTap: () {
                                         if (isClickable) {
+                                          AdmobService.showInterstitialAd();
                                           setState(() {
                                             changeColor("A");
                                           });
@@ -194,6 +202,7 @@ class HomeMainCardState extends State<HomeMainCard> {
                                 homeMiniCard(
                                     onTap: () {
                                       if (isClickable) {
+                                        AdmobService.showInterstitialAd();
                                         setState(() {
                                           changeColor("H");
                                         });

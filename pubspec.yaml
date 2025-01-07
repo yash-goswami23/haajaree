@@ -30,6 +30,8 @@ dependencies:
   app_settings: ^5.1.1
   flutter_local_notifications: ^18.0.1
   timezone: ^0.10.0
+  google_mobile_ads: ^5.2.0
+  device_preview: ^1.2.0
 
   
 dev_dependencies:

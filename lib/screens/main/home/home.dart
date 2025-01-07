@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:haajaree/bloc/home_bloc/home_bloc.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
+import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/home_model.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/main/home/widgets/home_main_card.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -24,6 +27,7 @@ class _HomeState extends State<Home> {
   List<HomeModel>? homeList;
   bool isHere = false;
   setData() {
+    print('now in setData');
     context.read<HomeBloc>().add(SetAttencesModelEvent(HomeModel(
         dutyStatus: '',
         overTime: '0',
@@ -35,6 +39,8 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    AdmobService.loadInterstitialAd();
+    AdmobService.loadRewardedAd();
     // if (context.read<HomeBloc>().state is HomeInitial) {
     context.read<HomeBloc>().add(GetAttenceModelEvent());
     // }
@@ -62,6 +68,15 @@ class _HomeState extends State<Home> {
               color: whiteColor,
               context: context,
             ),
+            actions: [
+              SizedBox(
+                width: screenWidth(context, dividedBy: 2),
+                child: AdWidget(
+                  ad: AdmobService.createBannerAd()..load(),
+                  key: UniqueKey(),
+                ),
+              ),
+            ],
             backgroundColor: const Color(blueElementColor),
             // elevation: 12,
           ),
@@ -71,7 +86,6 @@ class _HomeState extends State<Home> {
         listener: (context, state) {
           if (state is DbAttencesSuccess) {
             homeList = state.homeModelList;
-
             for (var element in state.homeModelList) {
               if (element.date ==
                   DateFormat('dd-MM-yyyy').format(DateTime.now()).toString()) {
@@ -84,8 +98,16 @@ class _HomeState extends State<Home> {
               isHere = true;
             }
           }
+          if (state is HomeFirstData) {
+            setData();
+          }
         },
         builder: (context, state) {
+          print('now state is $state');
+
+          // if (state is HomeFirstData || state is HomeInitial) {
+          //   setData();
+          // }
           if (state is HomeLoading) {
             return Center(
               child: LoadingAnimationWidget.inkDrop(
@@ -107,6 +129,7 @@ class _HomeState extends State<Home> {
                         day: model.day,
                         seletedValue: model.dutyStatus,
                         saveBtn: (model) {
+                          AdmobService.showRewardedAd();
                           context
                               .read<HomeBloc>()
                               .add(SetAttencesModelEvent(model));
@@ -115,14 +138,9 @@ class _HomeState extends State<Home> {
                   );
                 });
           } else if (state is HomeFailure) {
+            AdmobService.showInterstitialAd();
             return Center(
               child: elementRegluar(text: state.error, context: context),
-            );
-          } else if (state is HomeFirstData) {
-            setData();
-            return Center(
-              child: LoadingAnimationWidget.inkDrop(
-                  color: const Color(whiteColor), size: 45),
             );
           } else {
             return Center(

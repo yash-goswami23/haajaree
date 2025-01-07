@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/icons.dart';
 import 'package:haajaree/constants/sizes.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/routes/routes_names.dart';
@@ -16,8 +18,33 @@ class WelcomeScreen extends StatefulWidget {
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
+  void initState() {
+    super.initState();
+    AdmobService.loadRewardedAd();
+    AdmobService.loadInterstitialAd();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(bgColor),
+        actions: [
+          SizedBox(
+            width: screenWidth(context, dividedBy: 1),
+            child: AdWidget(
+              ad: AdmobService.createBannerAd()..load(),
+            ),
+          )
+        ],
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 65,
+        child: AdWidget(
+          ad: AdmobService.createBannerAd()..load(),
+          key: UniqueKey(),
+        ),
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -29,7 +56,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(top: 10),
-                    height: 165,
+                    height: screenHeight(context, dividedBy: 5),
                     child: Stack(
                       alignment: Alignment.topCenter,
                       children: [
@@ -56,6 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             context: context,
                             text: 'Create New Account',
                             onTap: () {
+                              // AdmobService.showInterstitialAd();
                               Navigator.pushReplacementNamed(
                                   context, createAccountScreen);
                             }),
@@ -65,12 +93,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               context: context,
                               text: 'Login',
                               onTap: () {
+                                // AdmobService.showInterstitialAd();
                                 Navigator.pushReplacementNamed(
                                     context, loginScreen);
                               }),
                         ),
                         button(
-                            context: context, text: 'How to Use', onTap: () {}),
+                            context: context,
+                            text: 'How to Use',
+                            onTap: () {
+                              AdmobService.showRewardedAd();
+                            }),
                       ],
                     ),
                   ),
