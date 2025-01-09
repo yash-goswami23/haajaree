@@ -91,10 +91,6 @@ class _ProfileState extends State<Profile> {
             if (state.userModel.photoUrl.isNotEmpty) {
               _selectedImage = File(state.userModel.photoUrl);
             }
-            // if (state.userModel.jobEndTime != null) {
-            //   NotificationService().scheduleDailyNotification(
-            //       uid: state.userModel.uID!, time: state.userModel.jobEndTime!);
-            // }
           }
         },
         builder: (context, state) {
@@ -109,14 +105,11 @@ class _ProfileState extends State<Profile> {
                 child: SingleChildScrollView(
                   child: card(
                       context: context,
-                      // alignment: Alignment.center,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Padding(
                             padding: EdgeInsets.only(
-                                // top: screenWidth(context, dividedBy:),
-                                // bottom: screenWidth(context, dividedBy: 11),
                                 right: screenWidth(context, dividedBy: 11),
                                 left: screenWidth(context, dividedBy: 11)),
                             child: Column(
@@ -131,7 +124,6 @@ class _ProfileState extends State<Profile> {
                                         context: context,
                                         backgroundColor: Colors.transparent,
                                         builder: (context) => Container(
-                                          // color: Colors.transparent,
                                           padding: const EdgeInsets.only(
                                               left: 8, right: 8, bottom: 15),
                                           height: MediaQuery.of(context)
@@ -565,9 +557,6 @@ class _ProfileState extends State<Profile> {
                                           ),
                                         ],
                                       ),
-                                      // customTextField(
-                                      //     controller: jobTimeContoller,
-                                      //     label: 'Enter Job Time'),
                                     ),
                                     const SizedBox(height: 20),
                                     customTextField(
@@ -602,99 +591,99 @@ class _ProfileState extends State<Profile> {
                                                                   .size
                                                                   .height *
                                                               0.18,
-                                                      child: Expanded(
-                                                        child: Column(
-                                                          children: [
-                                                            Flexible(
-                                                              child: SizedBox(
-                                                                width:
-                                                                    screenWidth(
-                                                                        context),
-                                                                child: BlocConsumer<
-                                                                    AuthBloc,
-                                                                    AuthState>(
-                                                                  listener:
-                                                                      (context,
-                                                                          state) {
-                                                                    if (state
-                                                                        is AuthFailure) {
-                                                                      showSnakBar(
-                                                                          context,
-                                                                          state
-                                                                              .error);
-                                                                    } else if (state
-                                                                        is AuthInitial) {
-                                                                      AdmobService
-                                                                          .showRewardedAd();
-                                                                      Navigator.pushNamedAndRemoveUntil(
-                                                                          context,
-                                                                          welcomeScreen,
-                                                                          (route) =>
-                                                                              false);
-                                                                    }
-                                                                  },
-                                                                  builder:
-                                                                      (context,
-                                                                          state) {
-                                                                    return ElevatedButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                          context
-                                                                              .read<AuthBloc>()
-                                                                              .add(SignOutEvent());
-                                                                        },
-                                                                        style: ElevatedButton.styleFrom(
-                                                                            backgroundColor: const Color.fromARGB(255, 222, 222, 222),
-                                                                            padding: const EdgeInsets.all(13),
-                                                                            shape: RoundedRectangleBorder(
-                                                                              borderRadius: BorderRadius.circular(10),
-                                                                            )),
-                                                                        child: state is AuthLoading
-                                                                            ? LoadingAnimationWidget.inkDrop(color: const Color(redColor), size: 25)
-                                                                            : Text(
-                                                                                'Log out',
-                                                                                style: TextStyle(color: Colors.red.shade400, fontSize: 16, fontWeight: FontWeight.w500),
-                                                                              ));
-                                                                  },
-                                                                ),
+                                                      child: Column(
+                                                        children: [
+                                                          Flexible(
+                                                            child: SizedBox(
+                                                              width:
+                                                                  screenWidth(
+                                                                      context),
+                                                              child:
+                                                                  BlocConsumer<
+                                                                      AuthBloc,
+                                                                      AuthState>(
+                                                                listener:
+                                                                    (context,
+                                                                        state) {
+                                                                  if (state
+                                                                      is AuthFailure) {
+                                                                    showSnakBar(
+                                                                        context,
+                                                                        state
+                                                                            .error);
+                                                                  } else if (state
+                                                                      is AuthInitial) {
+                                                                    AdmobService
+                                                                        .showRewardedAd();
+                                                                    Navigator.pushNamedAndRemoveUntil(
+                                                                        context,
+                                                                        welcomeScreen,
+                                                                        (route) =>
+                                                                            false);
+                                                                  }
+                                                                },
+                                                                builder:
+                                                                    (context,
+                                                                        state) {
+                                                                  return ElevatedButton(
+                                                                      onPressed:
+                                                                          () {
+                                                                        context
+                                                                            .read<AuthBloc>()
+                                                                            .add(SignOutEvent());
+                                                                      },
+                                                                      style: ElevatedButton.styleFrom(
+                                                                          backgroundColor: const Color.fromARGB(255, 222, 222, 222),
+                                                                          padding: const EdgeInsets.all(13),
+                                                                          shape: RoundedRectangleBorder(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(10),
+                                                                          )),
+                                                                      child: state is AuthLoading
+                                                                          ? LoadingAnimationWidget.inkDrop(color: const Color(redColor), size: 25)
+                                                                          : Text(
+                                                                              'Log out',
+                                                                              style: TextStyle(color: Colors.red.shade400, fontSize: 16, fontWeight: FontWeight.w500),
+                                                                            ));
+                                                                },
                                                               ),
                                                             ),
-                                                            const SizedBox(
-                                                              height: 8,
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 8,
+                                                          ),
+                                                          Flexible(
+                                                            child: SizedBox(
+                                                              width: double
+                                                                  .infinity,
+                                                              child: ElevatedButton(
+                                                                  onPressed: () {
+                                                                    Navigator.pop(
+                                                                        context);
+                                                                  },
+                                                                  style: ElevatedButton.styleFrom(
+                                                                      backgroundColor: Colors.white,
+                                                                      padding: const EdgeInsets.all(13),
+                                                                      shape: RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10),
+                                                                      )),
+                                                                  child: const Text(
+                                                                    'Cancel',
+                                                                    style: TextStyle(
+                                                                        color: Color.fromARGB(
+                                                                            255,
+                                                                            40,
+                                                                            111,
+                                                                            211),
+                                                                        fontSize:
+                                                                            16,
+                                                                        fontWeight:
+                                                                            FontWeight.w600),
+                                                                  )),
                                                             ),
-                                                            Flexible(
-                                                              child: SizedBox(
-                                                                width: double
-                                                                    .infinity,
-                                                                child: ElevatedButton(
-                                                                    onPressed: () {
-                                                                      Navigator.pop(
-                                                                          context);
-                                                                    },
-                                                                    style: ElevatedButton.styleFrom(
-                                                                        backgroundColor: Colors.white,
-                                                                        padding: const EdgeInsets.all(13),
-                                                                        shape: RoundedRectangleBorder(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(10),
-                                                                        )),
-                                                                    child: const Text(
-                                                                      'Cancel',
-                                                                      style: TextStyle(
-                                                                          color: Color.fromARGB(
-                                                                              255,
-                                                                              40,
-                                                                              111,
-                                                                              211),
-                                                                          fontSize:
-                                                                              16,
-                                                                          fontWeight:
-                                                                              FontWeight.w600),
-                                                                    )),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
                                                   )),

@@ -28,7 +28,6 @@ class HomeMainCard extends StatefulWidget {
       required this.day,
       this.saveBtn,
       this.hour = '0',
-      // this.isCheck = false,
       required this.isRight});
 
   @override
@@ -101,7 +100,6 @@ class HomeMainCardState extends State<HomeMainCard> {
               crossAxisAlignment: widget.isRight
                   ? CrossAxisAlignment.end
                   : CrossAxisAlignment.start,
-              // mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 card(
                   context: context,
@@ -153,11 +151,7 @@ class HomeMainCardState extends State<HomeMainCard> {
                                 homeMiniCard(
                                     cardColor: pColor,
                                     onTap: () {
-                                      // bsSelectedValue = 2;
                                       if (isClickable) {
-                                        // setState(() {
-                                        //   changeColor("P");
-                                        // });
                                         showBottomModalDialog(
                                           context: context,
                                           child: PresentItems(
@@ -267,9 +261,6 @@ class HomeMainCardState extends State<HomeMainCard> {
                               SizedBox(
                                   width: screenWidth(context, dividedBy: 25)),
                               Row(
-                                // crossAxisAlignment: CrossAxisAlignment.start,
-                                // mainAxisSize: MainAxisSize.max,
-                                // mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
                                   if (currentValue == pChanges)
                                     homeMiniCard(
@@ -319,9 +310,6 @@ class HomeMainCardState extends State<HomeMainCard> {
                                           cardColor: pColor,
                                           onTap: () {
                                             if (isClickable) {
-                                              // setState(() {
-                                              //   changeColor("P");
-                                              // });
                                               showBottomModalDialog(
                                                 context: context,
                                                 child: PresentItems(onTap:

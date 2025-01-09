@@ -27,13 +27,11 @@ class _HomeState extends State<Home> {
   List<HomeModel>? homeList;
   bool isHere = false;
   setData() {
-    print('now in setData');
     context.read<HomeBloc>().add(SetAttencesModelEvent(HomeModel(
         dutyStatus: '',
         overTime: '0',
         day: DateFormat('EEEE').format(DateTime.now()).toString(),
         date: DateFormat('dd-MM-yyyy').format(DateTime.now()).toString())));
-    // context.read<HomeBloc>().add(GetAttenceModelEvent());
   }
 
   @override
@@ -41,9 +39,7 @@ class _HomeState extends State<Home> {
     super.initState();
     AdmobService.loadInterstitialAd();
     AdmobService.loadRewardedAd();
-    // if (context.read<HomeBloc>().state is HomeInitial) {
     context.read<HomeBloc>().add(GetAttenceModelEvent());
-    // }
   }
 
   @override
@@ -103,11 +99,6 @@ class _HomeState extends State<Home> {
           }
         },
         builder: (context, state) {
-          print('now state is $state');
-
-          // if (state is HomeFirstData || state is HomeInitial) {
-          //   setData();
-          // }
           if (state is HomeLoading) {
             return Center(
               child: LoadingAnimationWidget.inkDrop(
@@ -129,7 +120,7 @@ class _HomeState extends State<Home> {
                         day: model.day,
                         seletedValue: model.dutyStatus,
                         saveBtn: (model) {
-                          AdmobService.showRewardedAd();
+                          //.showRewardedAd();
                           context
                               .read<HomeBloc>()
                               .add(SetAttencesModelEvent(model));
@@ -138,9 +129,15 @@ class _HomeState extends State<Home> {
                   );
                 });
           } else if (state is HomeFailure) {
-            AdmobService.showInterstitialAd();
+            //.showInterstitialAd();
             return Center(
               child: elementRegluar(text: state.error, context: context),
+            );
+          } else if (state is HomeFirstData) {
+            setData();
+            return Center(
+              child: LoadingAnimationWidget.inkDrop(
+                  color: const Color(whiteColor), size: 45),
             );
           } else {
             return Center(

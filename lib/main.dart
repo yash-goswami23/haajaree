@@ -31,10 +31,6 @@ void main() async {
   );
   AdmobService.initialize();
   runApp(const MainApp());
-  // runApp(DevicePreview(
-  //   enabled: true,
-  //   builder: (context) => const MainApp(),
-  // ));
 }
 
 @pragma('vm:entry-point')
@@ -43,9 +39,6 @@ Future<void> _firebaseBackgroundNotificationHeandle(
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // // if(message)
-  // NotificationService().showNotification(
-  //     message.notification!.title!, message.notification!.body!);
 }
 
 class MainApp extends StatefulWidget {
@@ -88,22 +81,7 @@ class _MainAppState extends State<MainApp> {
       BlocProvider(
         create: (context) => ProgressBloc(authRepo, dbRepo),
       ),
-    ], child: WhichScreens(authRepo: authRepo, dbRepo: dbRepo)
-        //     MaterialApp(
-        //   theme: ThemeData(
-        //       scaffoldBackgroundColor: const Color(bgColor),
-        //       brightness: Brightness.light),
-        //   debugShowCheckedModeBanner: false,
-        //   themeMode: ThemeMode.light,
-        //   localizationsDelegates: const [
-        //     GlobalMaterialLocalizations.delegate,
-        //     GlobalWidgetsLocalizations.delegate,
-        //     GlobalCupertinoLocalizations.delegate,
-        //   ],
-        //   onGenerateRoute: Routes.onGenerateRoute,
-        //   initialRoute: authRepo.currentUser != null ? mainPage : welcomeScreen,
-        // ),
-        );
+    ], child: WhichScreens(authRepo: authRepo, dbRepo: dbRepo));
   }
 }
 
@@ -134,7 +112,7 @@ class _WhichScreensState extends State<WhichScreens> {
         } else if (state is InWelcomeScreen) {
           return _buildMateralApp(welcomeScreen);
         } else {
-          AdmobService.showRewardedAd();
+          // AdmobService.showRewardedAd();
           return Center(
             child: LoadingAnimationWidget.inkDrop(
                 color: const Color(whiteColor), size: 45),
@@ -156,10 +134,6 @@ class _WhichScreensState extends State<WhichScreens> {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      // home: Center(
-      //   child: elementRegluar(
-      //       text: '${userData.toString()}, $currentUser', context: context),
-      // ),
       onGenerateRoute: Routes.onGenerateRoute,
       initialRoute: initalRoute,
     );

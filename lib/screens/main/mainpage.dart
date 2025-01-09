@@ -19,11 +19,6 @@ class _MainpageState extends State<Mainpage> {
     const Home(),
     const Progress(),
     const Profile(),
-    // const AcademyMainScreen(),
-    // const MarketsScreen(),
-    // const TradeScreen(),
-    // const PortfolioScreen(),
-    // const MyWalletScreen(),
   ];
 
   @override

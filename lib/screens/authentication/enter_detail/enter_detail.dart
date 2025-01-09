@@ -46,7 +46,6 @@ class _EnterDetailState extends State<EnterDetail> {
     super.initState();
     AdmobService.loadRewardedAd();
     AdmobService.loadInterstitialAd();
-    // AdmobService.loadInterstitialAd();
   }
 
   @override
@@ -159,9 +158,6 @@ class _EnterDetailState extends State<EnterDetail> {
                                 ),
                               ],
                             ),
-                            // customTextField(
-                            //     controller: jobTimeContoller,
-                            //     label: 'Enter Job Time'),
                           ),
                           customTextField(
                               controller: monthlySalaryController,
@@ -172,7 +168,7 @@ class _EnterDetailState extends State<EnterDetail> {
                               if (state is UserFailure) {
                                 showSnakBar(context, state.error);
                               } else if (state is UserSuccess) {
-                                AdmobService.showRewardedAd();
+                                // AdmobService.showRewardedAd();
                                 Navigator.pushReplacementNamed(
                                     context, mainPage);
                               }

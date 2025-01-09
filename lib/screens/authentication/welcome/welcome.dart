@@ -20,8 +20,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    AdmobService.loadRewardedAd();
-    AdmobService.loadInterstitialAd();
+    // // AdmobService.loadRewardedAd();
+    // // AdmobService.loadInterstitialAd();
   }
 
   @override
@@ -83,7 +83,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             context: context,
                             text: 'Create New Account',
                             onTap: () {
-                              // AdmobService.showInterstitialAd();
+                              AdmobService.showInterstitialAd();
                               Navigator.pushReplacementNamed(
                                   context, createAccountScreen);
                             }),
@@ -93,7 +93,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                               context: context,
                               text: 'Login',
                               onTap: () {
-                                // AdmobService.showInterstitialAd();
+                                AdmobService.showInterstitialAd();
                                 Navigator.pushReplacementNamed(
                                     context, loginScreen);
                               }),

@@ -24,9 +24,6 @@ class _PresentItemsState extends State<PresentItems> {
   @override
   void initState() {
     super.initState();
-    // selectedIndex = widget.selectedValue;
-    // print(
-    //     'selectedIndex $selectedIndex, selectedValue: ${widget.selectedValue}');
   }
 
   @override
@@ -38,7 +35,6 @@ class _PresentItemsState extends State<PresentItems> {
         children: [
           bottomSheetItemCard(
               context: context,
-              // showHour: false,
               index: 1,
               text: 'Full Duty No Over-Time',
               selectedIndex: selectedIndex,
@@ -80,7 +76,6 @@ class _PresentItemsState extends State<PresentItems> {
                 children: [
                   card(
                     context: context,
-                    // margin: const EdgeInsets.only(right: 8),
                     height: 35,
                     width: 35,
                     child: Container(),
@@ -90,7 +85,6 @@ class _PresentItemsState extends State<PresentItems> {
                     minValue: 0,
                     axis: Axis.horizontal,
                     maxValue: 10,
-                    // infiniteLoop: true,
                     itemWidth: 35,
                     itemHeight: 35,
                     itemCount: 3,
@@ -110,7 +104,6 @@ class _PresentItemsState extends State<PresentItems> {
               hour: currentValue1.toString()),
           bottomSheetItemCard(
               context: context,
-              // showHour: true,
               index: 3,
               selectedIndex: selectedIndex,
               text: 'Only-Time',
@@ -134,7 +127,6 @@ class _PresentItemsState extends State<PresentItems> {
                 children: [
                   card(
                     context: context,
-                    // margin: const EdgeInsets.only(right: 8),
                     height: 35,
                     width: 35,
                     child: Container(),

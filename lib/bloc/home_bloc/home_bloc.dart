@@ -50,6 +50,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if (homeList != null) {
         if (homeList!.isNotEmpty) {
           emit(DbAttencesSuccess(homeList!));
+        } else {
+          emit(HomeFirstData());
         }
       } else {
         emit(HomeFirstData());

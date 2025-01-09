@@ -59,11 +59,6 @@ class _ProgressState extends State<Progress> {
         th = int.parse(element.overTime!) + th;
       }
     }
-    // if (userState is DbUserModelSuccess) {
-    //   userModel = userState.userModel;
-    // } else if (userState is DbInitial) {
-    //   context.read<UserBloc>().add(GetUserModelEvent());
-    // }
     monthlySalary = double.parse(userModel.monthlySalary.toString());
     daySalary = monthlySalary / 30;
     // Example strings

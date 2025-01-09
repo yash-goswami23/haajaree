@@ -34,8 +34,8 @@ class _CreateAccountState extends State<CreateAccount>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
-    AdmobService.loadInterstitialAd();
-    AdmobService.loadRewardedAd();
+    // AdmobService.loadInterstitialAd();
+    // AdmobService.loadRewardedAd();
   }
 
   @override
