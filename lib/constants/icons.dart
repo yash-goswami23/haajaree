@@ -20,7 +20,7 @@ const fillProfile = 'assets/icons/fillProfile.svg';
 
 //images
 const logo = 'assets/images/logos.png';
-Widget appLogo({double width = 135, double height = 135, color = bgColor}) =>
+Widget appLogo({double width = 100, double height = 135, color = bgColor}) =>
     Image.asset(
       logo,
       width: width,

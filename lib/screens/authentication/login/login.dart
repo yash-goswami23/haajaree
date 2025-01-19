@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:haajaree/bloc/auth_bloc/auth_bloc.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/icons.dart';
 import 'package:haajaree/constants/sizes.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
@@ -31,6 +33,8 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    AdmobService.loadInterstitialAd();
+    AdmobService.loadRewardedAd();
   }
 
   @override
@@ -53,6 +57,17 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: const Color(bgColor),
+        actions: [
+          SizedBox(
+            width: screenWidth(context, dividedBy: 1),
+            child: AdWidget(
+              ad: AdmobService.createBannerAd()..load(),
+            ),
+          )
+        ],
+      ),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(
@@ -120,6 +135,7 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
                               if (state is AuthFailure) {
                                 showSnakBar(context, state.error);
                               } else if (state is AuthSuccess) {
+                                AdmobService.showInterstitialAd();
                                 Navigator.pushReplacementNamed(
                                     context, mainPage);
                               } else if (state is AuthGoogleSuccess) {
@@ -128,6 +144,7 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
                                   Navigator.pushReplacementNamed(
                                       context, enterDetailScreen);
                                 } else {
+                                  AdmobService.showInterstitialAd();
                                   Navigator.pushReplacementNamed(
                                       context, mainPage);
                                 }
@@ -162,6 +179,7 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
                           ),
                           GestureDetector(
                             onTap: () {
+                              AdmobService.showRewardedAd();
                               Navigator.pushReplacementNamed(
                                   context, createAccountScreen);
                             },

@@ -3,13 +3,14 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:haajaree/bloc/auth_bloc/auth_bloc.dart';
 import 'package:haajaree/bloc/user_bloc/user_bloc.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/icons.dart';
 import 'package:haajaree/constants/sizes.dart';
-import 'package:haajaree/data/repositories/notification_service.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
@@ -35,7 +36,9 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    if (context.read<UserBloc>().state is DbInitial) {
+    AdmobService.loadInterstitialAd();
+    AdmobService.loadRewardedAd();
+    if (context.read<UserBloc>().state is UserInitial) {
       context.read<UserBloc>().add(GetUserModelEvent());
     }
   }
@@ -62,6 +65,15 @@ class _ProfileState extends State<Profile> {
               color: whiteColor,
               context: context,
             ),
+            actions: [
+              SizedBox(
+                width: screenWidth(context, dividedBy: 2),
+                child: AdWidget(
+                  ad: AdmobService.createBannerAd()..load(),
+                  key: UniqueKey(),
+                ),
+              ),
+            ],
             backgroundColor: const Color(blueElementColor),
             // elevation: 12,
           ),
@@ -69,12 +81,13 @@ class _ProfileState extends State<Profile> {
       ),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
-          if (state is DbInitial) {
+          if (state is UserInitial) {
             context.read<UserBloc>().add(GetUserModelEvent());
-          } else if (state is DbFailure) {
+          } else if (state is UserFailure) {
             showSnakBar(context, state.error);
             context.read<UserBloc>().add(GetUserModelEvent());
-          } else if (state is DbUserModelSuccess) {
+          } else if (state is UserSuccess) {
+            AdmobService.showRewardedAd();
             if (state.userModel.photoUrl.isNotEmpty) {
               _selectedImage = File(state.userModel.photoUrl);
             }
@@ -85,7 +98,7 @@ class _ProfileState extends State<Profile> {
           }
         },
         builder: (context, state) {
-          if (state is DbUserModelSuccess) {
+          if (state is UserSuccess) {
             if (state.userModel.photoUrl.isNotEmpty) {
               _selectedImage = File(state.userModel.photoUrl);
             }
@@ -125,113 +138,134 @@ class _ProfileState extends State<Profile> {
                                                   .size
                                                   .height *
                                               0.18,
-                                          child: Column(
-                                            children: [
-                                              SizedBox(
-                                                width: double.infinity,
-                                                child: ElevatedButton(
-                                                    onPressed: () async {
-                                                      final xfile =
-                                                          await pickImageFromGallery(
-                                                              _picker);
-                                                      if (xfile != null) {
-                                                        _selectedImage =
-                                                            File(xfile.path);
-                                                        context.read<UserBloc>().add(
-                                                            SetUserModelEvent(state
-                                                                .userModel
-                                                                .copyWith(
-                                                                    photoUrl: xfile
-                                                                        .path
-                                                                        .toString())));
-                                                        Navigator.pop(context);
-                                                      }
-                                                    },
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            backgroundColor:
-                                                                const Color(
-                                                                    whiteColor),
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(13),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            )),
-                                                    child: state is AuthLoading
-                                                        ? LoadingAnimationWidget
-                                                            .inkDrop(
-                                                                color: const Color(
-                                                                    whiteColor),
-                                                                size: 25)
-                                                        : const Text(
-                                                            'Pick From Gallery',
-                                                            style: TextStyle(
-                                                                color: Color(
-                                                                    blueElementColor),
-                                                                fontSize: 16,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500),
-                                                          )),
-                                              ),
-                                              const SizedBox(
-                                                height: 8,
-                                              ),
-                                              SizedBox(
-                                                width: double.infinity,
-                                                child: ElevatedButton(
-                                                    onPressed: () async {
-                                                      final xfile =
-                                                          await captureImageFromCamera(
-                                                              _picker);
-                                                      if (xfile != null) {
-                                                        _selectedImage =
-                                                            File(xfile.path);
-                                                        context.read<UserBloc>().add(
-                                                            SetUserModelEvent(state
-                                                                .userModel
-                                                                .copyWith(
-                                                                    photoUrl: xfile
-                                                                        .path
-                                                                        .toString())));
-                                                        Navigator.pop(context);
-                                                      }
-                                                    },
-                                                    style: ElevatedButton
-                                                        .styleFrom(
-                                                            backgroundColor:
-                                                                Colors.white,
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .all(13),
-                                                            shape:
-                                                                RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          10),
-                                                            )),
-                                                    child: const Text(
-                                                      'Pick From Camera',
-                                                      style: TextStyle(
-                                                          color: Color(
-                                                              blueElementColor),
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w600),
-                                                    )),
-                                              ),
-                                            ],
+                                          child: Expanded(
+                                            child: Column(
+                                              children: [
+                                                Flexible(
+                                                  child: SizedBox(
+                                                    width: double.infinity,
+                                                    child: ElevatedButton(
+                                                        onPressed: () async {
+                                                          final xfile =
+                                                              await pickImageFromGallery(
+                                                                  _picker);
+                                                          if (xfile != null) {
+                                                            _selectedImage =
+                                                                File(
+                                                                    xfile.path);
+                                                            context
+                                                                .read<
+                                                                    UserBloc>()
+                                                                .add(SetUserModelEvent(state
+                                                                    .userModel
+                                                                    .copyWith(
+                                                                        photoUrl: xfile
+                                                                            .path
+                                                                            .toString())));
+                                                            Navigator.pop(
+                                                                context);
+                                                          }
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                backgroundColor:
+                                                                    const Color(
+                                                                        whiteColor),
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        13),
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                )),
+                                                        child: state
+                                                                is AuthLoading
+                                                            ? LoadingAnimationWidget
+                                                                .inkDrop(
+                                                                    color: const Color(
+                                                                        whiteColor),
+                                                                    size: 25)
+                                                            : const Text(
+                                                                'Pick From Gallery',
+                                                                style: TextStyle(
+                                                                    color: Color(
+                                                                        blueElementColor),
+                                                                    fontSize:
+                                                                        16,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w500),
+                                                              )),
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 8,
+                                                ),
+                                                Flexible(
+                                                  child: SizedBox(
+                                                    width: double.infinity,
+                                                    child: ElevatedButton(
+                                                        onPressed: () async {
+                                                          final xfile =
+                                                              await captureImageFromCamera(
+                                                                  _picker);
+                                                          if (xfile != null) {
+                                                            _selectedImage =
+                                                                File(
+                                                                    xfile.path);
+                                                            context
+                                                                .read<
+                                                                    UserBloc>()
+                                                                .add(SetUserModelEvent(state
+                                                                    .userModel
+                                                                    .copyWith(
+                                                                        photoUrl: xfile
+                                                                            .path
+                                                                            .toString())));
+                                                            Navigator.pop(
+                                                                context);
+                                                          }
+                                                        },
+                                                        style: ElevatedButton
+                                                            .styleFrom(
+                                                                backgroundColor:
+                                                                    Colors
+                                                                        .white,
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                        .all(
+                                                                        13),
+                                                                shape:
+                                                                    RoundedRectangleBorder(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10),
+                                                                )),
+                                                        child: const Text(
+                                                          'Pick From Camera',
+                                                          style: TextStyle(
+                                                              color: Color(
+                                                                  blueElementColor),
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600),
+                                                        )),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
                                       onTap: () {
                                         if (_selectedImage != null) {
+                                          AdmobService.showInterstitialAd();
                                           showImage(context, _selectedImage!);
                                         } else {
                                           showMaterialModalBottomSheet(
@@ -269,6 +303,9 @@ class _ProfileState extends State<Profile> {
                                                                         photoUrl: xfile
                                                                             .path
                                                                             .toString())));
+
+                                                            AdmobService
+                                                                .showRewardedAd();
                                                             Navigator.pop(
                                                                 context);
                                                           }
@@ -331,6 +368,8 @@ class _ProfileState extends State<Profile> {
                                                                         photoUrl: xfile
                                                                             .path
                                                                             .toString())));
+                                                            AdmobService
+                                                                .showRewardedAd();
                                                             Navigator.pop(
                                                                 context);
                                                           }
@@ -563,107 +602,99 @@ class _ProfileState extends State<Profile> {
                                                                   .size
                                                                   .height *
                                                               0.18,
-                                                      child: Column(
-                                                        children: [
-                                                          SizedBox(
-                                                            width:
-                                                                double.infinity,
-                                                            child: BlocConsumer<
-                                                                AuthBloc,
-                                                                AuthState>(
-                                                              listener:
-                                                                  (context,
-                                                                      state) {
-                                                                if (state
-                                                                    is AuthFailure) {
-                                                                  showSnakBar(
-                                                                      context,
-                                                                      state
-                                                                          .error);
-                                                                } else if (state
-                                                                    is AuthInitial) {
-                                                                  Navigator.pushNamedAndRemoveUntil(
-                                                                      context,
-                                                                      welcomeScreen,
-                                                                      (route) =>
-                                                                          false);
-                                                                }
-                                                              },
-                                                              builder: (context,
-                                                                  state) {
-                                                                return ElevatedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      context
-                                                                          .read<
-                                                                              AuthBloc>()
-                                                                          .add(
-                                                                              SignOutEvent());
-                                                                    },
-                                                                    style: ElevatedButton
-                                                                        .styleFrom(
-                                                                            backgroundColor: const Color.fromARGB(
-                                                                                255,
-                                                                                222,
-                                                                                222,
-                                                                                222),
-                                                                            padding: const EdgeInsets.all(
-                                                                                13),
-                                                                            shape:
-                                                                                RoundedRectangleBorder(
+                                                      child: Expanded(
+                                                        child: Column(
+                                                          children: [
+                                                            Flexible(
+                                                              child: SizedBox(
+                                                                width:
+                                                                    screenWidth(
+                                                                        context),
+                                                                child: BlocConsumer<
+                                                                    AuthBloc,
+                                                                    AuthState>(
+                                                                  listener:
+                                                                      (context,
+                                                                          state) {
+                                                                    if (state
+                                                                        is AuthFailure) {
+                                                                      showSnakBar(
+                                                                          context,
+                                                                          state
+                                                                              .error);
+                                                                    } else if (state
+                                                                        is AuthInitial) {
+                                                                      AdmobService
+                                                                          .showRewardedAd();
+                                                                      Navigator.pushNamedAndRemoveUntil(
+                                                                          context,
+                                                                          welcomeScreen,
+                                                                          (route) =>
+                                                                              false);
+                                                                    }
+                                                                  },
+                                                                  builder:
+                                                                      (context,
+                                                                          state) {
+                                                                    return ElevatedButton(
+                                                                        onPressed:
+                                                                            () {
+                                                                          context
+                                                                              .read<AuthBloc>()
+                                                                              .add(SignOutEvent());
+                                                                        },
+                                                                        style: ElevatedButton.styleFrom(
+                                                                            backgroundColor: const Color.fromARGB(255, 222, 222, 222),
+                                                                            padding: const EdgeInsets.all(13),
+                                                                            shape: RoundedRectangleBorder(
                                                                               borderRadius: BorderRadius.circular(10),
                                                                             )),
-                                                                    child: state
-                                                                            is AuthLoading
-                                                                        ? LoadingAnimationWidget.inkDrop(
-                                                                            color:
-                                                                                const Color(redColor),
-                                                                            size: 25)
-                                                                        : Text(
-                                                                            'Log out',
-                                                                            style: TextStyle(
-                                                                                color: Colors.red.shade400,
-                                                                                fontSize: 16,
-                                                                                fontWeight: FontWeight.w500),
-                                                                          ));
-                                                              },
+                                                                        child: state is AuthLoading
+                                                                            ? LoadingAnimationWidget.inkDrop(color: const Color(redColor), size: 25)
+                                                                            : Text(
+                                                                                'Log out',
+                                                                                style: TextStyle(color: Colors.red.shade400, fontSize: 16, fontWeight: FontWeight.w500),
+                                                                              ));
+                                                                  },
+                                                                ),
+                                                              ),
                                                             ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 8,
-                                                          ),
-                                                          SizedBox(
-                                                            width:
-                                                                double.infinity,
-                                                            child: ElevatedButton(
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                },
-                                                                style: ElevatedButton.styleFrom(
-                                                                    backgroundColor: Colors.white,
-                                                                    padding: const EdgeInsets.all(13),
-                                                                    shape: RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10),
+                                                            const SizedBox(
+                                                              height: 8,
+                                                            ),
+                                                            Flexible(
+                                                              child: SizedBox(
+                                                                width: double
+                                                                    .infinity,
+                                                                child: ElevatedButton(
+                                                                    onPressed: () {
+                                                                      Navigator.pop(
+                                                                          context);
+                                                                    },
+                                                                    style: ElevatedButton.styleFrom(
+                                                                        backgroundColor: Colors.white,
+                                                                        padding: const EdgeInsets.all(13),
+                                                                        shape: RoundedRectangleBorder(
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10),
+                                                                        )),
+                                                                    child: const Text(
+                                                                      'Cancel',
+                                                                      style: TextStyle(
+                                                                          color: Color.fromARGB(
+                                                                              255,
+                                                                              40,
+                                                                              111,
+                                                                              211),
+                                                                          fontSize:
+                                                                              16,
+                                                                          fontWeight:
+                                                                              FontWeight.w600),
                                                                     )),
-                                                                child: const Text(
-                                                                  'Cancel',
-                                                                  style: TextStyle(
-                                                                      color: Color.fromARGB(
-                                                                          255,
-                                                                          40,
-                                                                          111,
-                                                                          211),
-                                                                      fontSize:
-                                                                          16,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w600),
-                                                                )),
-                                                          ),
-                                                        ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                   )),
@@ -678,11 +709,14 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
             );
-          } else if (state is DbLoading) {
+          } else if (state is UserLoading) {
             return Center(
               child: LoadingAnimationWidget.inkDrop(
                   color: const Color(whiteColor), size: 45),
             );
+          } else if (state is UserFailure) {
+            return Center(
+                child: elementRegluar(text: state.error, context: context));
           } else {
             return Center(
                 child: Padding(

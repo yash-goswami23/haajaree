@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:haajaree/bloc/home_bloc/home_bloc.dart';
+import 'package:haajaree/bloc/progress_bloc/progress_bloc_bloc.dart';
 import 'package:haajaree/bloc/user_bloc/user_bloc.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
+import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/home_model.dart';
 import 'package:haajaree/data/models/progress_model.dart';
 import 'package:haajaree/data/models/user_model.dart';
+import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/main/progress/widgets/progress_widgets.dart';
 import 'package:haajaree/utils/check_two_time_difference.dart';
 import 'package:haajaree/utils/show_taost.dart';
@@ -85,12 +89,17 @@ class _ProgressState extends State<Progress> {
         totalSalary: ts.toInt(),
         totalIncome: ti.toInt(),
         totalHalfDays: thfd);
+    if (progressModel != null) {
+      context.read<ProgressBloc>().add(SetProgressEvent(progressModel!));
+    }
   }
 
   @override
   void initState() {
     super.initState();
-    if (context.read<UserBloc>().state is DbInitial) {
+    AdmobService.loadInterstitialAd();
+    AdmobService.loadRewardedAd();
+    if (context.read<UserBloc>().state is UserInitial) {
       context.read<UserBloc>().add(GetUserModelEvent());
     }
   }
@@ -117,6 +126,15 @@ class _ProgressState extends State<Progress> {
               color: whiteColor,
               context: context,
             ),
+            actions: [
+              SizedBox(
+                width: screenWidth(context, dividedBy: 2),
+                child: AdWidget(
+                  ad: AdmobService.createBannerAd()..load(),
+                  key: UniqueKey(),
+                ),
+              ),
+            ],
             backgroundColor: const Color(blueElementColor),
             // elevation: 12,
           ),
@@ -124,15 +142,17 @@ class _ProgressState extends State<Progress> {
       ),
       body: BlocConsumer<UserBloc, UserState>(
         listener: (context, state) {
-          if (state is DbInitial) {
+          if (state is UserInitial) {
             context.read<UserBloc>().add(GetUserModelEvent());
-          } else if (state is DbFailure) {
+          } else if (state is UserFailure) {
+            AdmobService.showRewardedAd();
             showSnakBar(context, state.error);
             context.read<UserBloc>().add(GetUserModelEvent());
           }
         },
         builder: (context, state) {
-          if (state is DbUserModelSuccess) {
+          if (state is UserSuccess) {
+            AdmobService.showInterstitialAd();
             final List<HomeModel>? homeList = context.read<HomeBloc>().homeList;
             calculateValues(homeList!, state.userModel);
             final itemList = progressModel!.listOnTitleWithValue();

@@ -8,6 +8,7 @@ Widget customTextField(
     Widget? suffixWidget,
     bool obscureText = false,
     bool enabled = true,
+    TextInputType? textInputType,
     ValueChanged<String>? onChanged,
     FormFieldValidator<String>? validator}) {
   return Container(
@@ -19,6 +20,7 @@ Widget customTextField(
     ),
     child: TextFormField(
       enabled: enabled,
+      keyboardType: textInputType,
       controller: controller,
       obscureText: obscureText,
       style: GoogleFonts.urbanist(
