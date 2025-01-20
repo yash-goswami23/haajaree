@@ -63,6 +63,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '680348275586',
     projectId: 'haajaree',
     storageBucket: 'haajaree.firebasestorage.app',
-    iosBundleId: 'com.example.haajaree',
+    iosBundleId: 'com.uma.studios.haajaree',
   );
 }

@@ -112,7 +112,7 @@ class _WhichScreensState extends State<WhichScreens> {
         } else if (state is InWelcomeScreen) {
           return _buildMateralApp(welcomeScreen);
         } else {
-          // AdmobService.showRewardedAd();
+          AdmobService.showRewardedAd();
           return Center(
             child: LoadingAnimationWidget.inkDrop(
                 color: const Color(whiteColor), size: 45),

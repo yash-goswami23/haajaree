@@ -1,4 +1,4 @@
-package com.example.haajaree
+package com.uma.studios.haajaree
 
 import io.flutter.embedding.android.FlutterActivity
 

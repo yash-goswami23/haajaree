@@ -6,7 +6,7 @@ class AdmobService {
   static String get bannerAdUnitId =>
       //ca-app-pub-3940256099942544/6300978111
       //ca-app-pub-2794202314500041~3165148609
-      Platform.isAndroid ? 'ca-app-pub-3940256099942544/6300978111' : '';
+      Platform.isAndroid ? 'ca-app-pub-2794202314500041/5257228976' : '';
   static initialize() {}
 
   static InterstitialAd? interstitialAd;
@@ -25,7 +25,7 @@ class AdmobService {
 
   static void loadInterstitialAd() {
     InterstitialAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/1033173712',
+      adUnitId: 'ca-app-pub-2794202314500041/3599875834',
       request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
@@ -40,7 +40,7 @@ class AdmobService {
 
   static void loadRewardedAd() {
     RewardedAd.load(
-      adUnitId: 'ca-app-pub-3940256099942544/5224354917',
+      adUnitId: 'ca-app-pub-2794202314500041/6827570752',
       request: const AdRequest(),
       rewardedAdLoadCallback: RewardedAdLoadCallback(
         onAdLoaded: (ad) {

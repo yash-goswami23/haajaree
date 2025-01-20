@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                         day: model.day,
                         seletedValue: model.dutyStatus,
                         saveBtn: (model) {
-                          //.showRewardedAd();
+                          AdmobService.showRewardedAd();
                           context
                               .read<HomeBloc>()
                               .add(SetAttencesModelEvent(model));

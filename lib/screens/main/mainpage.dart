@@ -37,18 +37,12 @@ class _MainpageState extends State<Mainpage> {
                   fontSize: 11,
                   color: Color(whiteColor),
                   height: 1.8),
-              selectedLabelStyle:
-                  //  GoogleFonts.urbanist(
-                  //     fontSize: 16,
-                  //     fontWeight: FontWeight.w600,
-                  //     height: 1.8,
-                  //     color: Color(whiteColor)),
-                  TextStyle(
-                      fontFamily: 'urbanist',
-                      fontWeight: FontWeight.w600,
-                      fontSize: 13,
-                      color: Color(whiteColor),
-                      height: 1.8),
+              selectedLabelStyle: TextStyle(
+                  fontFamily: 'urbanist',
+                  fontWeight: FontWeight.w600,
+                  fontSize: 13,
+                  color: Color(whiteColor),
+                  height: 1.8),
               selectedIconTheme: IconThemeData(size: 40),
               unselectedIconTheme: IconThemeData(size: 36)),
           child: Container(
@@ -71,14 +65,12 @@ class _MainpageState extends State<Mainpage> {
                       fillHome,
                       height: 35,
                       width: 35,
-                      // color: const Color(0xff1D1B20),
                       allowDrawingOutsideViewBox: true,
                     ),
                     icon: SvgPicture.asset(
                       home,
                       height: 30,
                       width: 30,
-                      // color: Colors.grey,
                       allowDrawingOutsideViewBox: true,
                     ),
                     label: 'Home'),

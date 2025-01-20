@@ -20,8 +20,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   void initState() {
     super.initState();
-    // // AdmobService.loadRewardedAd();
-    // // AdmobService.loadInterstitialAd();
+    AdmobService.loadRewardedAd();
+    // AdmobService.loadInterstitialAd();
   }
 
   @override

@@ -114,7 +114,6 @@ class _EnterDetailState extends State<EnterDetail> {
                             padding: const EdgeInsets.only(
                                 top: 8, bottom: 8, left: 5, right: 5),
                             decoration: BoxDecoration(
-                              // color: Color(bgColor),
                               borderRadius: BorderRadius.circular(8.0),
                               border: Border.all(color: const Color(bgColor)),
                             ),
@@ -168,7 +167,7 @@ class _EnterDetailState extends State<EnterDetail> {
                               if (state is UserFailure) {
                                 showSnakBar(context, state.error);
                               } else if (state is UserSuccess) {
-                                // AdmobService.showRewardedAd();
+                                AdmobService.showRewardedAd();
                                 Navigator.pushReplacementNamed(
                                     context, mainPage);
                               }
@@ -191,11 +190,6 @@ class _EnterDetailState extends State<EnterDetail> {
                                           .format(date1.toLocal());
                                       String endTime = DateFormat('hh:mm a')
                                           .format(date2.toLocal());
-                                      // String startTime =
-                                      //     '${DateFormat('hh').format(date1.toLocal())}-${DateFormat('mm').format(date1.toLocal())}';
-                                      // String endTime =
-                                      //     '${DateFormat('hh').format(date2.toLocal())}-${DateFormat('mm').format(date2.toLocal())}';
-                                      // String jobTime = '$startTime'
                                       if (compneyNameController
                                               .text.isNotEmpty &&
                                           monthlySalaryController
