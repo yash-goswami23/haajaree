@@ -8,7 +8,7 @@ import 'package:haajaree/bloc/auth_bloc/auth_bloc.dart';
 import 'package:haajaree/bloc/user_bloc/user_bloc.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
-import 'package:haajaree/constants/icons.dart';
+import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/services/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';

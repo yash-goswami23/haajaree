@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
-import 'package:haajaree/constants/icons.dart';
+import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/home_model.dart';
 import 'package:haajaree/data/services/admob_service.dart';

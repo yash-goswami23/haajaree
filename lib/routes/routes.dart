@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:haajaree/screens/authentication/enter_detail/enter_detail.dart';
 import 'package:haajaree/screens/authentication/get_started/create_account.dart';
 import 'package:haajaree/screens/authentication/login/login.dart';
+import 'package:haajaree/screens/how_to_use_screen/how_to_use_video_screen.dart';
 import 'package:haajaree/screens/main/mainpage.dart';
 import 'package:haajaree/screens/authentication/welcome/welcome.dart';
 import 'package:haajaree/routes/routes_names.dart';
@@ -28,6 +29,10 @@ class Routes {
       case enterDetailScreen:
         return MaterialPageRoute(
           builder: (context) => const EnterDetail(),
+        );
+      case howToVideoScreen:
+        return MaterialPageRoute(
+          builder: (context) => const HowToUseScreen(),
         );
       default:
       // MaterialApp(

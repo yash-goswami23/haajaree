@@ -10,6 +10,10 @@ const gmail = "assets/icons/Gmail.svg";
 const camera = "assets/icons/camera.svg";
 const gallery = "assets/icons/gallery.svg";
 
+
+//video path
+const haajareeVideo = 'assets/videos/haajaree_video.mp4';
+
 //bottom navi bar
 const home = 'assets/icons/home.svg';
 const fillHome = 'assets/icons/fillHome.svg';

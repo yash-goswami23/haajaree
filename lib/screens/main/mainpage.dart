@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:haajaree/constants/colors.dart';
-import 'package:haajaree/constants/icons.dart';
+import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/screens/main/home/home.dart';
 import 'package:haajaree/screens/main/profile/profile.dart';
 import 'package:haajaree/screens/main/progress/progress.dart';

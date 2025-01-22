@@ -7,3 +7,4 @@ const String welcomeScreen = 'welcomeScreen';
 const String enterDetailScreen = 'enterDetail';
 const String loginScreen = 'login';
 const String mainPage = '/mainPage';
+const String howToVideoScreen = 'howToVideoScreen';
