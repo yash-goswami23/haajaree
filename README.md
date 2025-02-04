@@ -22,15 +22,13 @@ Employers get an overview of employee attendance, salaries, and work hours.
 Automated systems calculate salary, overtime, absences, and deductions without manual effort.
 
 ##Screenshots
-![image8](https://github.com/user-attachments/assets/5a564a16-82b5-4499-989f-a386ffaf280c)
-![image7](https://github.com/user-attachments/assets/ecec1c74-a29a-44ec-a74e-1ffc64099ba2)
-![image6](https://github.com/user-attachments/assets/b6285dab-1190-4a42-b545-937622cdfa8e)
-![image5](https://github.com/user-attachments/assets/44056b97-5d5b-49ef-9a50-9e93269f454a)
-![image4](https://github.com/user-attachments/assets/d860f916-c592-49de-a28e-acf5d4fa7c3f)
-![image3](https://github.com/user-attachments/assets/6a343775-f942-4a3b-9b98-d73e80a1b964)
-![image2](https://github.com/user-attachments/assets/153d25f6-56fa-4c3b-b7d6-28cc5e57461e)
-![image1](https://github.com/user-attachments/assets/05462ab5-8f3e-4492-9ba3-d8277dfdbd54)
-
+![both](https://github.com/user-attachments/assets/8ea5c424-a1a6-45d1-bc5c-b7956aad4c79)
+![image5](https://github.com/user-attachments/assets/c211a26d-14a1-43ef-b693-f90468badfc6)
+![image4](https://github.com/user-attachments/assets/6ca481d5-bf79-49a1-8837-94073f937eea)
+![image3](https://github.com/user-attachments/assets/80447da1-2dc1-4686-9881-fefd634d37c9)
+![image6](https://github.com/user-attachments/assets/bdae4d85-346c-4d3e-8f46-7ee14aadaebf)
+![image8](https://github.com/user-attachments/assets/61905436-e923-4b09-9d0c-e25b1259ce0f)
+![image7](https://github.com/user-attachments/assets/4ef61c71-6e57-4310-9ced-870621269fae)
 
 ## Download
 Amazon App Store : https://www.amazon.com/gp/product/B0D93P946K
