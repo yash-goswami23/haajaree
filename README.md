@@ -20,7 +20,20 @@ Employees can mark their attendance daily with a single tap.
 Employers get an overview of employee attendance, salaries, and work hours.
 
 Automated systems calculate salary, overtime, absences, and deductions without manual effort.
+
+##Screenshots
+![image8](https://github.com/user-attachments/assets/5a564a16-82b5-4499-989f-a386ffaf280c)
+![image7](https://github.com/user-attachments/assets/ecec1c74-a29a-44ec-a74e-1ffc64099ba2)
+![image6](https://github.com/user-attachments/assets/b6285dab-1190-4a42-b545-937622cdfa8e)
+![image5](https://github.com/user-attachments/assets/44056b97-5d5b-49ef-9a50-9e93269f454a)
+![image4](https://github.com/user-attachments/assets/d860f916-c592-49de-a28e-acf5d4fa7c3f)
+![image3](https://github.com/user-attachments/assets/6a343775-f942-4a3b-9b98-d73e80a1b964)
+![image2](https://github.com/user-attachments/assets/153d25f6-56fa-4c3b-b7d6-28cc5e57461e)
+![image1](https://github.com/user-attachments/assets/05462ab5-8f3e-4492-9ba3-d8277dfdbd54)
+
+
 ## Download
 Amazon App Store : https://www.amazon.com/gp/product/B0D93P946K
 
 Diract Link : https://drive.google.com/file/d/1FCOEzavfBD6FTQRUnHOGob5NgAmVbbsN/view?usp=drive_link
+
