@@ -15,7 +15,7 @@ import 'package:haajaree/data/models/user_model.dart';
 import 'package:haajaree/data/repositories/auth_repository.dart';
 import 'package:haajaree/data/repositories/database_repository.dart';
 import 'package:haajaree/data/repositories/notification_service.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
 import 'package:haajaree/firebase_options.dart';
 import 'package:haajaree/routes/routes.dart';
 import 'package:haajaree/routes/routes_names.dart';
@@ -29,7 +29,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  AdmobService.initialize();
+  await AdmobService.initialize();
   runApp(const MainApp());
 }
 
@@ -112,7 +112,7 @@ class _WhichScreensState extends State<WhichScreens> {
         } else if (state is InWelcomeScreen) {
           return _buildMateralApp(welcomeScreen);
         } else {
-          AdmobService.showRewardedAd();
+          AdmobService.showAppOpenAd();
           return Center(
             child: LoadingAnimationWidget.inkDrop(
                 color: const Color(whiteColor), size: 45),
@@ -123,6 +123,7 @@ class _WhichScreensState extends State<WhichScreens> {
   }
 
   _buildMateralApp(String initalRoute) {
+    AdmobService.showAppOpenAd();
     return MaterialApp(
       theme: ThemeData(
           scaffoldBackgroundColor: const Color(bgColor),

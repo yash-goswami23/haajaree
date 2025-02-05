@@ -37,7 +37,6 @@ Widget dateTimeContainer(
               // initialDateTime: date,
               mode: CupertinoDatePickerMode.time,
               use24hFormat: false,
-              // maximumDate: DateTime.now(),
               onDateTimeChanged: onDateChange,
             ),
             context)

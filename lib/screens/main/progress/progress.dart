@@ -10,10 +10,12 @@ import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/home_model.dart';
 import 'package:haajaree/data/models/progress_model.dart';
 import 'package:haajaree/data/models/user_model.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/banner_ads_widget.dart';
 import 'package:haajaree/screens/main/progress/widgets/progress_widgets.dart';
 import 'package:haajaree/utils/check_two_time_difference.dart';
 import 'package:haajaree/utils/show_taost.dart';
+import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class Progress extends StatefulWidget {

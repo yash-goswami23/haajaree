@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:haajaree/constants/colors.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/main/home/widgets/show_bottom_modal.dart';
 import 'package:haajaree/utils/show_taost.dart';

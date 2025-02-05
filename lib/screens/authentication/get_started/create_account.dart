@@ -7,7 +7,8 @@ import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/sizes.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/banner_ads_widget.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
@@ -29,14 +30,6 @@ class _CreateAccountState extends State<CreateAccount>
   final TextEditingController fullNameControllers = TextEditingController();
   bool confirmPassShow = true;
   bool isKeyboardVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    AdmobService.loadInterstitialAd();
-    AdmobService.loadRewardedAd();
-  }
 
   @override
   void dispose() {
@@ -64,9 +57,7 @@ class _CreateAccountState extends State<CreateAccount>
         actions: [
           SizedBox(
             width: screenWidth(context, dividedBy: 1),
-            child: AdWidget(
-              ad: AdmobService.createBannerAd()..load(),
-            ),
+            child: BannerAdWidget(),
           )
         ],
       ),

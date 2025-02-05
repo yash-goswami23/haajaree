@@ -6,7 +6,8 @@ import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/home_model.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/banner_ads_widget.dart';
 import 'package:haajaree/screens/main/home/widgets/home_main_card.dart';
 import 'package:intl/intl.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -35,14 +36,6 @@ class _HomeState extends State<Home> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    AdmobService.loadInterstitialAd();
-    AdmobService.loadRewardedAd();
-    context.read<HomeBloc>().add(GetAttenceModelEvent());
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
@@ -67,10 +60,7 @@ class _HomeState extends State<Home> {
             actions: [
               SizedBox(
                 width: screenWidth(context, dividedBy: 2),
-                child: AdWidget(
-                  ad: AdmobService.createBannerAd()..load(),
-                  key: UniqueKey(),
-                ),
+                child: BannerAdWidget(),
               ),
             ],
             backgroundColor: const Color(blueElementColor),
@@ -100,11 +90,13 @@ class _HomeState extends State<Home> {
         },
         builder: (context, state) {
           if (state is HomeLoading) {
+            AdmobService.showInterstitialAd();
             return Center(
               child: LoadingAnimationWidget.inkDrop(
                   color: const Color(whiteColor), size: 45),
             );
           } else if (state is DbAttencesSuccess) {
+            AdmobService.showInterstitialAd();
             return ListView.builder(
                 itemCount: state.homeModelList.length,
                 padding: const EdgeInsets.symmetric(vertical: 15),
@@ -120,7 +112,6 @@ class _HomeState extends State<Home> {
                         day: model.day,
                         seletedValue: model.dutyStatus,
                         saveBtn: (model) {
-                          AdmobService.showRewardedAd();
                           context
                               .read<HomeBloc>()
                               .add(SetAttencesModelEvent(model));
@@ -129,6 +120,7 @@ class _HomeState extends State<Home> {
                   );
                 });
           } else if (state is HomeFailure) {
+            AdmobService.showRewardedAd();
             //.showInterstitialAd();
             return Center(
               child: elementRegluar(text: state.error, context: context),
@@ -140,10 +132,8 @@ class _HomeState extends State<Home> {
                   color: const Color(whiteColor), size: 45),
             );
           } else {
-            return Center(
-              child: LoadingAnimationWidget.inkDrop(
-                  color: const Color(whiteColor), size: 45),
-            );
+            context.read<HomeBloc>().add(GetAttenceModelEvent());
+            return Center(child: Text(state.toString()));
           }
         },
       ),

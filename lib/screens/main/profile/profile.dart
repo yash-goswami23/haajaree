@@ -10,7 +10,7 @@ import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/sizes.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
@@ -36,8 +36,6 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    AdmobService.loadInterstitialAd();
-    AdmobService.loadRewardedAd();
     if (context.read<UserBloc>().state is UserInitial) {
       context.read<UserBloc>().add(GetUserModelEvent());
     }
@@ -133,66 +131,60 @@ class _ProfileState extends State<Profile> {
                                           child: Expanded(
                                             child: Column(
                                               children: [
-                                                Flexible(
-                                                  child: SizedBox(
-                                                    width: double.infinity,
-                                                    child: ElevatedButton(
-                                                        onPressed: () async {
-                                                          final xfile =
-                                                              await pickImageFromGallery(
-                                                                  _picker);
-                                                          if (xfile != null) {
-                                                            _selectedImage =
-                                                                File(
-                                                                    xfile.path);
-                                                            context
-                                                                .read<
-                                                                    UserBloc>()
-                                                                .add(SetUserModelEvent(state
-                                                                    .userModel
-                                                                    .copyWith(
-                                                                        photoUrl: xfile
-                                                                            .path
-                                                                            .toString())));
-                                                            Navigator.pop(
-                                                                context);
-                                                          }
-                                                        },
-                                                        style: ElevatedButton
-                                                            .styleFrom(
-                                                                backgroundColor:
-                                                                    const Color(
-                                                                        whiteColor),
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        13),
-                                                                shape:
-                                                                    RoundedRectangleBorder(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                )),
-                                                        child: state
-                                                                is AuthLoading
-                                                            ? LoadingAnimationWidget
-                                                                .inkDrop(
-                                                                    color: const Color(
-                                                                        whiteColor),
-                                                                    size: 25)
-                                                            : const Text(
-                                                                'Pick From Gallery',
-                                                                style: TextStyle(
-                                                                    color: Color(
-                                                                        blueElementColor),
-                                                                    fontSize:
-                                                                        16,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500),
+                                                SizedBox(
+                                                  width: double.infinity,
+                                                  child: ElevatedButton(
+                                                      onPressed: () async {
+                                                        final xfile =
+                                                            await pickImageFromGallery(
+                                                                _picker);
+                                                        if (xfile != null) {
+                                                          _selectedImage =
+                                                              File(xfile.path);
+                                                          context
+                                                              .read<UserBloc>()
+                                                              .add(SetUserModelEvent(state
+                                                                  .userModel
+                                                                  .copyWith(
+                                                                      photoUrl: xfile
+                                                                          .path
+                                                                          .toString())));
+                                                          Navigator.pop(
+                                                              context);
+                                                        }
+                                                      },
+                                                      style: ElevatedButton
+                                                          .styleFrom(
+                                                              backgroundColor:
+                                                                  const Color(
+                                                                      whiteColor),
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(13),
+                                                              shape:
+                                                                  RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10),
                                                               )),
-                                                  ),
+                                                      child: state
+                                                              is AuthLoading
+                                                          ? LoadingAnimationWidget
+                                                              .inkDrop(
+                                                                  color: const Color(
+                                                                      whiteColor),
+                                                                  size: 25)
+                                                          : const Text(
+                                                              'Pick From Gallery',
+                                                              style: TextStyle(
+                                                                  color: Color(
+                                                                      blueElementColor),
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
+                                                            )),
                                                 ),
                                                 const SizedBox(
                                                   height: 8,

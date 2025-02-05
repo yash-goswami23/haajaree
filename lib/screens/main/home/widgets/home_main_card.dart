@@ -5,7 +5,7 @@ import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/home_model.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/main/home/widgets/home_mini_card.dart';
 import 'package:haajaree/screens/main/home/widgets/present_item.dart';

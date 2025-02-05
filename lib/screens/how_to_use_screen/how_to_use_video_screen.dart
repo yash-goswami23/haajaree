@@ -4,7 +4,8 @@ import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/sizes.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/banner_ads_widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:video_player/video_player.dart';
 
@@ -43,13 +44,7 @@ class _HowToUseScreenState extends State<HowToUseScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: SizedBox(
-            width: screenWidth(context, dividedBy: 2),
-            child: AdWidget(
-              ad: AdmobService.createBannerAd()..load(),
-              key: UniqueKey(),
-            ),
-          ),
+          title: BannerAdWidget(),
           backgroundColor: const Color(blueElementColor),
           // elevation: 12,
         ),
@@ -81,10 +76,7 @@ class _HowToUseScreenState extends State<HowToUseScreen> {
         ),
         bottomNavigationBar: SizedBox(
           height: 65,
-          child: AdWidget(
-            ad: AdmobService.createBannerAd()..load(),
-            key: UniqueKey(),
-          ),
+          child: BannerAdWidget(),
         ));
   }
 }

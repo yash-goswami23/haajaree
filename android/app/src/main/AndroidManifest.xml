@@ -42,9 +42,12 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="high_importance_channel" />
+            <!-- <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2794202314500041~3165148609"/> -->
             <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-2794202314500041~3165148609"/>
+            android:value="ca-app-pub-2794202314500041~3726359145"/>
    </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility and

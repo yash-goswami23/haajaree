@@ -8,7 +8,8 @@ import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/sizes.dart';
 import 'package:haajaree/data/models/user_model.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/banner_ads_widget.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
@@ -42,33 +43,17 @@ class _EnterDetailState extends State<EnterDetail> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    AdmobService.loadRewardedAd();
-    AdmobService.loadInterstitialAd();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(bgColor),
         actions: [
           SizedBox(
-            width: screenWidth(context, dividedBy: 1),
-            child: AdWidget(
-              ad: AdmobService.createBannerAd()..load(),
-            ),
-          )
+              width: screenWidth(context, dividedBy: 1),
+              child: BannerAdWidget())
         ],
       ),
-      bottomNavigationBar: SizedBox(
-        height: 65,
-        child: AdWidget(
-          ad: AdmobService.createBannerAd()..load(),
-          key: UniqueKey(),
-        ),
-      ),
+      bottomNavigationBar: SizedBox(height: 65, child: BannerAdWidget()),
       body: Center(
         child: Padding(
           padding: EdgeInsets.symmetric(

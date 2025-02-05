@@ -7,7 +7,8 @@ import 'package:haajaree/constants/colors.dart';
 import 'package:haajaree/constants/fonts.dart';
 import 'package:haajaree/constants/assets_paths.dart';
 import 'package:haajaree/constants/sizes.dart';
-import 'package:haajaree/data/services/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/admob_service.dart';
+import 'package:haajaree/data/services/admob_service/banner_ads_widget.dart';
 import 'package:haajaree/screens/common_widgets/button.dart';
 import 'package:haajaree/screens/common_widgets/card.dart';
 import 'package:haajaree/screens/common_widgets/customtextfeild.dart';
@@ -28,14 +29,6 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
   final TextEditingController passwordController = TextEditingController();
   bool confirmPassShow = true;
   bool isKeyboardVisible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-    AdmobService.loadInterstitialAd();
-    AdmobService.loadRewardedAd();
-  }
 
   @override
   void dispose() {
@@ -62,9 +55,7 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
         actions: [
           SizedBox(
             width: screenWidth(context, dividedBy: 1),
-            child: AdWidget(
-              ad: AdmobService.createBannerAd()..load(),
-            ),
+            child: BannerAdWidget(),
           )
         ],
       ),
@@ -133,14 +124,16 @@ class _LoginState extends State<Login> with WidgetsBindingObserver {
                           BlocConsumer<AuthBloc, AuthState>(
                             listener: (context, state) {
                               if (state is AuthFailure) {
+                                AdmobService.showAppOpenAd();
                                 showSnakBar(context, state.error);
                               } else if (state is AuthSuccess) {
-                                AdmobService.showInterstitialAd();
+                                AdmobService.showRewardedAd();
                                 Navigator.pushReplacementNamed(
                                     context, mainPage);
                               } else if (state is AuthGoogleSuccess) {
                                 if (state.userCredential.additionalUserInfo!
                                     .isNewUser) {
+                                  AdmobService.showAppOpenAd();
                                   Navigator.pushReplacementNamed(
                                       context, enterDetailScreen);
                                 } else {
