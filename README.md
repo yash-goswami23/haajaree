@@ -24,7 +24,7 @@ Automated systems calculate salary, overtime, absences, and deductions without m
 ## Download
 Amazon App Store : https://www.amazon.com/gp/product/B0D93P946K
 
-Diract Link : https://drive.google.com/file/d/1FCOEzavfBD6FTQRUnHOGob5NgAmVbbsN/view?usp=drive_link
+Diract Link : https://docs.google.com/uc?export=download&id=1FCOEzavfBD6FTQRUnHOGob5NgAmVbbsN
 
 ## Screenshorts
 ![both](https://github.com/user-attachments/assets/8ea5c424-a1a6-45d1-bc5c-b7956aad4c79)
